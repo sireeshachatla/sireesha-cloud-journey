@@ -12,10 +12,10 @@ Leave the check section at the bottom alone.
 # 1. Variables and types
 # ---------------------------------------------------------------------------
 # Create a variable holding your AWS region as a string.
-region = None  # TODO: set this to "us-east-1"
+region = "us-east-1"# TODO: set this to "us-east-1"
 
 # Create a variable holding how many hours per week you study, as an integer.
-hours_per_week = None  # TODO: set this to 8
+hours_per_week = 8  # TODO: set this to 8
 
 
 # ---------------------------------------------------------------------------
@@ -24,7 +24,7 @@ hours_per_week = None  # TODO: set this to 8
 # An f-string inserts variables into text: f"hello {name}"
 # Build the string "Studying 8 hours per week in us-east-1" using your
 # two variables above. Do not hardcode the numbers or the region.
-summary = None  # TODO: use an f-string
+summary = f"Studying {hours_per_week} hours per week in {region}" # TODO: use an f-string
 
 
 # ---------------------------------------------------------------------------
@@ -33,11 +33,10 @@ summary = None  # TODO: use an f-string
 services = ["lambda", "s3", "dynamodb"]
 
 # Add "sqs" to the end of the list.
-# TODO: one line here
+services.append("sqs")
 
 # Set this to how many items the list now holds. Use len().
-service_count = None  # TODO
-
+service_count = len(services)
 
 # ---------------------------------------------------------------------------
 # 4. Dictionaries
@@ -46,19 +45,20 @@ service_count = None  # TODO
 tags = {"Owner": "sireesha", "Environment": "dev"}
 
 # Add a "Project" key with the value "learning".
-# TODO: one line here
+tags["Project"] = "learning"
 
 # Read the value of "Owner" out of the dictionary into this variable.
-owner = None  # TODO
-
+owner = tags["Owner"]
 
 # ---------------------------------------------------------------------------
 # 5. Conditionals
 # ---------------------------------------------------------------------------
 def is_production(environment):
     """Return True if environment is "prod", otherwise False."""
-    # TODO: replace this with an if/else (or a single comparison)
-    return None
+    if environment == "prod":
+        return True
+    else:
+        return False
 
 
 # ---------------------------------------------------------------------------
@@ -70,8 +70,10 @@ def uppercase_all(items):
     Example: ["s3", "sqs"] -> ["S3", "SQS"]
     Do not change the original list.
     """
-    # TODO: build a new list with a for loop, then return it
-    return None
+    result = []
+    for item in items:
+        result.append(item.upper())
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -79,8 +81,7 @@ def uppercase_all(items):
 # ---------------------------------------------------------------------------
 def monthly_cost(hourly_rate, hours):
     """Return hourly_rate multiplied by hours."""
-    # TODO
-    return None
+    return hourly_rate * hours
 
 
 # ---------------------------------------------------------------------------
@@ -92,8 +93,10 @@ def safe_divide(a, b):
     If b is zero, return the string "cannot divide by zero" instead of
     crashing. Use try / except ZeroDivisionError.
     """
-    # TODO
-    return None
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return "cannot divide by zero"
 
 
 # ===========================================================================
