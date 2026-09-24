@@ -1,0 +1,7 @@
+{
+  "project": "sireesha-cloud-journey",
+  "owner": "sireesha",
+  "environment": "dev",
+  "region": "us-east-1",
+  "services": ["lambda", "s3", "dynamodb"]
+}
