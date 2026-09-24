@@ -1,0 +1,14 @@
+{
+  "name": "week4-node-basics",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "warmup": "node warmup.js",
+    "test": "node --test tags.test.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
