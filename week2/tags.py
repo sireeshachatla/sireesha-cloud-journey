@@ -28,7 +28,7 @@ def make_name(prefix, environment, resource):
 
     Example: make_name("Acme", "dev", "bucket") -> "acme-dev-bucket"
     """
-    raise NotImplementedError("TODO: implement make_name")
+    return f"{prefix}-{environment}-{resource}".lower()
 
 
 def normalize_environment(environment):
@@ -39,7 +39,10 @@ def normalize_environment(environment):
 
     Example: normalize_environment("Production") -> "prod"
     """
-    raise NotImplementedError("TODO: implement normalize_environment")
+    key = environment.strip().lower()
+    if key not in ENVIRONMENT_ALIASES:
+        raise ValueError(f"Unknown environment: {environment}")
+    return ENVIRONMENT_ALIASES[key]
 
 
 def find_missing_tags(tags):
@@ -49,7 +52,11 @@ def find_missing_tags(tags):
 
     Example: find_missing_tags({"Owner": "sireesha"}) -> ["Environment", "Project"]
     """
-    raise NotImplementedError("TODO: implement find_missing_tags")
+    missing = []
+    for key in REQUIRED_TAG_KEYS:
+        if key not in tags:
+            missing.append(key)
+    return missing
 
 
 def count_by_environment(resources):
@@ -63,4 +70,12 @@ def count_by_environment(resources):
         [{"Environment": "dev"}, {"Environment": "dev"}, {"Environment": "prod"}]
         -> {"dev": 2, "prod": 1}
     """
-    raise NotImplementedError("TODO: implement count_by_environment")
+    counts = {}
+    for resource in resources:
+        if "Environment" not in resource:
+            continue
+        env = resource["Environment"]
+        if env not in counts:
+            counts[env] = 0
+        counts[env] += 1
+    return counts

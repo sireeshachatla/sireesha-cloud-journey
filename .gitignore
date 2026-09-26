@@ -13,6 +13,9 @@ venv/
 # Node
 node_modules/
 
+# Local lab output (API URLs from deploy scripts)
+week8/.api-url
+
 # OS / editor
 .DS_Store
 .idea/
