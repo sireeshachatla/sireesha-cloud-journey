@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python-tests:
+    name: Python tests (week2–3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r week2/requirements.txt
+          pip install -r week3/requirements.txt
+
+      - name: Run pytest
+        run: |
+          pytest week2/test_tags.py week3/test_config_tools.py week3/test_fetch_json.py -q
+
+  node-tests:
+    name: Node tests (week4–5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Week 4 tests
+        working-directory: week4
+        run: |
+          npm ci
+          npm test
+
+      - name: Week 5 tests
+        working-directory: week5
+        run: |
+          npm ci
+          npm test
+
+  opentofu-validate:
+    name: OpenTofu validate (week12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: "1.8.8"
+
+      - name: Init and validate
+        working-directory: week12/infra
+        run: |
+          tofu init -backend=false
+          tofu validate

@@ -16,6 +16,11 @@ node_modules/
 # Local lab output (API URLs from deploy scripts)
 week8/.api-url
 
+# OpenTofu / Terraform local state and plugins
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+
 # OS / editor
 .DS_Store
 .idea/
